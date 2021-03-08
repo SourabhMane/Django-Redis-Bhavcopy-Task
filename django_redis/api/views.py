@@ -10,6 +10,12 @@ current_date = datetime.datetime.now()
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,
                                   port=settings.REDIS_PORT, db=0)
 
+today18pm = current_date.replace(hour=18, minute=0, second=0, microsecond=0)
+if current_date < today18pm:
+    current_date = datetime.datetime.today() - datetime.timedelta(days=1)
+else:
+    current_date = datetime.datetime.now()
+
 # Create your views here.
 
 def manage_items(request, *args, **kwargs):
